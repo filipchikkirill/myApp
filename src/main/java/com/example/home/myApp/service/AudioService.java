@@ -32,6 +32,14 @@ public class AudioService {
         audioRepo.save(audio);
     }
 
+    public void saveAudio(Audio audio) {
+        audioRepo.save(audio);
+    }
+
+    public Audio getAudioById(Long id) {
+        return audioRepo.getOne(id);
+    }
+
     public Iterable<Audio> getAll() {
         return audioRepo.findAll();
     }

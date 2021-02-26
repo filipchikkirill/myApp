@@ -20,7 +20,7 @@ public class PlayList {
 
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "audio_playList",
             joinColumns = @JoinColumn(name = "playList_id"),
@@ -65,6 +65,10 @@ public class PlayList {
 
     public Set<Audio> getAudio() {
         return audio;
+    }
+
+    public void addAudio(Audio audio) {
+        getAudio().add(audio);
     }
 
     public void setAudio(Set<Audio> audio) {
