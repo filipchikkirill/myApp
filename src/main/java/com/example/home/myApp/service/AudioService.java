@@ -17,9 +17,8 @@ import java.util.UUID;
 public class AudioService {
     @Autowired
     private AudioRepo audioRepo;
-
-    @Value("${upload.audio.path}")
-    private String uploadPath;
+    @Autowired
+    private FileSaveService fileSaveService;
 
     public void addAudio(String name, String author, User user, MultipartFile file) throws IOException {
         Audio audio = new Audio();
@@ -27,7 +26,7 @@ public class AudioService {
         audio.setAuthor(author);
         audio.setUser(user);
         audio.setDateAdd( new Date(System.currentTimeMillis()));
-        saveFile(audio, file);
+        fileSaveService.saveFile(audio, file);
 
         audioRepo.save(audio);
     }
@@ -47,22 +46,4 @@ public class AudioService {
         return audioRepo.findByUserName(user.getName());
     }
 
-    private void saveFile(Audio audio,
-                          MultipartFile file
-    ) throws IOException {
-        if (file != null && !file.getOriginalFilename().isEmpty()) {
-            File uploadDir = new File(uploadPath);
-
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
-            }
-
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFilename = uuidFile + "_" + file.getOriginalFilename();
-
-            file.transferTo(new File(uploadPath + "/" + resultFilename));
-
-            audio.setFilename(resultFilename);
-        }
-    }
 }

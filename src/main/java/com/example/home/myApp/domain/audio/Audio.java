@@ -1,6 +1,7 @@
 package com.example.home.myApp.domain.audio;
 
 import com.example.home.myApp.domain.User;
+import com.example.home.myApp.domain.interfaces.FileStorable;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -8,7 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class Audio {
+public class Audio implements FileStorable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

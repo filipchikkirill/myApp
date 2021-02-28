@@ -1,9 +1,11 @@
 package com.example.home.myApp.domain;
 
+import com.example.home.myApp.domain.interfaces.FileStorable;
+
 import javax.persistence.*;
 
 @Entity
-public class Message {
+public class Message implements FileStorable {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;

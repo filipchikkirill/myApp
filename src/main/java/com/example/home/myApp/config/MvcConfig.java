@@ -12,7 +12,7 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Value("${upload.audio.path}")
     private String uploadAudioPath;
-    @Value("${upload.path}")
+    @Value("${upload.img.path}")
     private String uploadPath;
 
 
