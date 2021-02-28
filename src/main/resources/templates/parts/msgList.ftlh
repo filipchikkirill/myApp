@@ -1,6 +1,7 @@
+<#include "security.ftlh" />
 
 <div class="card-columns">
-    <#list messages as message>
+<#list messages as message>
     <div class="card my-3">
         <div class="card-header" align="center">
             ${message.title}
@@ -12,10 +13,18 @@
             <i>${message.text}</i>
         </div>
         <div class="card-footer text-muted">
-            <p><strong>${message.author.name}</strong></p>
+            <p>
+                <strong>${message.author.name}</strong>
+                <#if message.author.id == s_curUserId>
+                <a class="btn btn-primary" href="/messages/${message.author.id}?message=${message.id}">
+                    Edit
+                </a>
+                </#if>
+            </p>
         </div>
     </div>
 <#else>
 No message
 </#list>
 </div>
+

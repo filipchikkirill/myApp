@@ -7,15 +7,15 @@ import com.example.home.myApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class MessageController {
@@ -57,5 +57,46 @@ public class MessageController {
                 );
 
         return "redirect:messages";
+    }
+
+
+
+    @GetMapping("/messages/{user}")
+    public String userMessges(
+            @PathVariable User user,
+            Model model,
+            @RequestParam(required = false) Message message
+    ) {
+        Iterable<Message> messages = user.getMessages();
+
+        model.addAttribute("messages", messages);
+        model.addAttribute("message", message);
+
+        return "messages";
+    }
+
+    @PostMapping("/messages/{user}")
+    public String updateMessage(
+            Principal principal,
+            @PathVariable Long user,
+            @RequestParam("id") Message message,
+            @RequestParam("text") String text,
+            @RequestParam("title") String title,
+            @RequestParam("file") MultipartFile file
+    ) throws IOException {
+        User currentUser = (User) userService.loadUserByUsername(principal.getName());
+        if (message.getAuthor().equals(currentUser)) {
+            if (!ObjectUtils.isEmpty(text)) {
+                message.setText(text);
+            }
+
+            if (!ObjectUtils.isEmpty(title)) {
+                message.setTitle(title);
+            }
+
+            messageService.addMessage(currentUser,message,file);
+        }
+
+        return "redirect:/messages/" + user;
     }
 }
