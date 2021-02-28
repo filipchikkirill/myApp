@@ -3,11 +3,7 @@
 <@c.page>
 <section class="container">
 	<div class="my-3" align="center">
-		<h3>Привет, ${user.username}</h3>
-		<form action="/logout" method="post">
-            <input type="hidden" name="_csrf" value="${_csrf.token}" />
-			<input class="button" type="submit" value="Выйти"/>
-		</form>
+		<h3>Привет, ${user.name}</h3>
 	</div>
 	<div class="my-3" align="center">
 		<form action="/addnote" method="post">

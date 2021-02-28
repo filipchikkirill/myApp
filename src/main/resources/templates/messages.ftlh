@@ -4,10 +4,6 @@
 <section class="container">
 <div class="my-3" align="center">
     <h3>Здравствуй, ${user.name}</h3>
-    <form action="/logout" method="post">
-        <input type="hidden" name="_csrf" value="${_csrf.token}" />
-        <input class="button" type="submit" value="Выйти"/>
-    </form>
 </div>
 <div class="my-3" align="center">
     <form action="/messages" method="post" enctype="multipart/form-data">

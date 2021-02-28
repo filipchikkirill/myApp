@@ -3,7 +3,7 @@
 
 <@c.page>
 <section class="container">
-    <div>
+    <div class="my-3" align="center">
         <h1>Spring Playlist</h1>
         <h2>name: ${playList.name}</h2>
         <h2>Author: ${playList.user.name}</h2>

@@ -3,7 +3,7 @@
 
 <@c.page>
 <section class="container">
-<div>
+<div class="my-3" align="center">
     <h1>Spring audios</h1>
     <h2>audio</h2>
 </div>

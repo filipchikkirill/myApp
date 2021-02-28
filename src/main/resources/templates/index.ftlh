@@ -4,7 +4,6 @@
 <section class="container">
 	<div>
 		<h1>Spring login</h1>
-		<h2>Сервис заметок</h2>
 	</div>
 	<div>
 		<ul>
