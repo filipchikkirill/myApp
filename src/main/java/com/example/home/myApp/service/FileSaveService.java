@@ -23,30 +23,37 @@ public class FileSaveService {
     @Value("${upload.path}")
     private String uploadPath;
 
-    protected void saveFile(FileStorable object,
+    protected boolean saveFile(FileStorable object,
                           MultipartFile file
     ) throws IOException {
 
-        String uuidFile = UUID.randomUUID().toString();
-
-        if (object instanceof Audio) {
-            uploadPath = uploadAudioPath;
-        } else if ( object instanceof Message) {
-            uploadPath = uploadImgPath;
-        }
-
         if (file != null && !file.getOriginalFilename().isEmpty()) {
+            String originalFilename = file.getOriginalFilename();
+
+            if (object instanceof Audio) {
+                uploadPath = uploadAudioPath;
+
+                if (!originalFilename.contains(".mp3")) {
+                    return false;
+                }
+            } else if ( object instanceof Message) {
+                uploadPath = uploadImgPath;
+            }
+
 
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
 
-            String resultFilename = uuidFile + "_" + file.getOriginalFilename();
+            String uuidFile = UUID.randomUUID().toString();
+            String resultFilename = uuidFile + "_" + originalFilename;
             file.transferTo(new File(uploadPath + "/" + resultFilename));
 
             object.setFilename(resultFilename);
+            return true;
         }
+        return false;
     }
 
 }

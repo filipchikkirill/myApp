@@ -26,7 +26,9 @@ public class AudioService {
         audio.setAuthor(author);
         audio.setUser(user);
         audio.setDateAdd( new Date(System.currentTimeMillis()));
-        fileSaveService.saveFile(audio, file);
+        if (!fileSaveService.saveFile(audio, file)) {
+            return;
+        }
 
         audioRepo.save(audio);
     }
