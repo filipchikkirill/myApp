@@ -1,6 +1,12 @@
 <#import "parts/common.ftlh" as c>
 
 <@c.page>
+<#if userError??>
+<div class="alert alert-danger" role="alert">
+	${userError}
+</div>
+</#if>
+
 <section class="container">
 	<div class="mx-auto border my-5 py-3 px-3 form">
 		<form action="/registration" method="post">

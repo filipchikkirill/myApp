@@ -15,6 +15,6 @@ public class IndexController
         {
             return "redirect:/notes";
         }
-        return "index";
+        return "login";
     }
 }
