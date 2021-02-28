@@ -11,11 +11,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MvcConfig implements WebMvcConfigurer {
 
     @Value("${upload.audio.path}")
+    private String uploadAudioPath;
+    @Value("${upload.path}")
     private String uploadPath;
+
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/audio/**")
+                .addResourceLocations("file://" + uploadAudioPath + "/");
+        registry.addResourceHandler("/img/**")
                 .addResourceLocations("file://" + uploadPath + "/");
     }
 
