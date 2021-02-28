@@ -13,7 +13,7 @@
                 <a class="nav-link" href="/messages">Messages</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/messages/${s_curUserId}">My Messages</a>
+                <a class="nav-link" href="/myMessages/${s_curUserId}">My Messages</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/playLists">Play Lists</a>

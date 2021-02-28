@@ -16,7 +16,7 @@
             <p>
                 <strong>${message.author.name}</strong>
                 <#if message.author.id == s_curUserId>
-                <a class="btn btn-primary" href="/messages/${message.author.id}?message=${message.id}">
+                <a class="btn btn-primary" href="/myMessages/${message.author.id}?message=${message.id}">
                     Edit
                 </a>
                 </#if>

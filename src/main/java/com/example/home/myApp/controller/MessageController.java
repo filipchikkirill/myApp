@@ -61,31 +61,38 @@ public class MessageController {
 
 
 
-    @GetMapping("/messages/{user}")
+    @GetMapping("/myMessages/{user}")
     public String userMessges(
+            Principal principal,
             @PathVariable User user,
             Model model,
             @RequestParam(required = false) Message message
     ) {
+        User currentUser = (User) userService.loadUserByUsername(principal.getName());
         Iterable<Message> messages = user.getMessages();
 
         model.addAttribute("messages", messages);
         model.addAttribute("message", message);
+        model.addAttribute("isCurrentUser", currentUser.equals(user));
 
-        return "messages";
+        return "myMessages";
     }
 
-    @PostMapping("/messages/{user}")
+    @PostMapping("/myMessages/{user}")
     public String updateMessage(
             Principal principal,
             @PathVariable Long user,
-            @RequestParam("id") Message message,
+            @RequestParam(name="id",required = false) Message message,
             @RequestParam("text") String text,
             @RequestParam("title") String title,
             @RequestParam("file") MultipartFile file
     ) throws IOException {
         User currentUser = (User) userService.loadUserByUsername(principal.getName());
-        if (message.getAuthor().equals(currentUser)) {
+        if (message == null) {
+            message = new Message();
+            message.setAuthor(currentUser);
+        }
+        if (currentUser.equals(message.getAuthor())) {
             if (!ObjectUtils.isEmpty(text)) {
                 message.setText(text);
             }
@@ -97,6 +104,6 @@ public class MessageController {
             messageService.addMessage(currentUser,message,file);
         }
 
-        return "redirect:/messages/" + user;
+        return "redirect:/myMessages/" + user;
     }
 }
