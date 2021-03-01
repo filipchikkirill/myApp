@@ -22,6 +22,14 @@
                 <a class="nav-link" href="/notes">Notes</a>
             </li>
             </#if>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    другие проекты
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/dirs_and_files">dirs_and_files</a>
+                </div>
+            </li>
         </ul>
     </div>
     <div class="navbar-text mr-3">${s_name}</div>
