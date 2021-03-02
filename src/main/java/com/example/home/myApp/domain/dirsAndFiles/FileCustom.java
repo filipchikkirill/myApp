@@ -46,4 +46,9 @@ public class FileCustom {
     public void setBaseDir(BaseDir baseDir) {
         this.baseDir = baseDir;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

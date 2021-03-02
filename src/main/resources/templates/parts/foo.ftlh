@@ -9,10 +9,10 @@
 
 <#function fs v>
     <#if v < 1024 >
-        <#return v + "b">
+        <#return v?string["0.## b"]>
     </#if>
     <#if v < (1024*1024)>
-        <#return (v / 1024) + "Kb">
+        <#return (v / 1024)?string["0.## Kb"]>
     </#if>
-    <#return (v / (1024*1024)) + "Mb">
+    <#return (v / (1024*1024))?string["0.## Mb"]>
 </#function>

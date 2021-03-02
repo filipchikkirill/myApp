@@ -25,7 +25,7 @@
 <#list baseDirs>
 <div align="center">
     <table class="table table-striped table-bordered">
-        <caption>List of items</caption>
+        <caption>List of Dirs</caption>
         <thead>
             <tr>
                 <th scope="col">Дата</th>
@@ -44,7 +44,7 @@
                 <td>${baseDir.dirs?size}</td>
                 <td>${baseDir.files?size}</td>
                 <td>${fs(summ(baseDir.files?map(file->file.size)))}</td>
-                <td><a class="btn btn-dark" href="/dirs_and_files">открыть</a></td>
+                <td><a class="btn btn-dark" href="/dirs_and_files/${baseDir.id}">открыть</a></td>
             </tr>
         </#items>
         </tbody>
