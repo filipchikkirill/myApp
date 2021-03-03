@@ -1,7 +1,7 @@
 package com.example.home.myApp.service;
 
 import com.example.home.myApp.domain.Message;
-import com.example.home.myApp.domain.audio.Audio;
+import com.example.home.myApp.domain.audioAndPlayList.Audio;
 import com.example.home.myApp.domain.interfaces.FileStorable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class FileSaveService {
     @Value("${upload.path}")
     private String uploadPath;
 
-    protected boolean saveFile(FileStorable object,
+    public boolean saveFile(FileStorable object,
                           MultipartFile file
     ) throws IOException {
 

@@ -1,10 +1,10 @@
-package com.example.home.myApp.controller;
+package com.example.home.myApp.controller.audioAndPlayList;
 
 import com.example.home.myApp.domain.User;
-import com.example.home.myApp.domain.audio.Audio;
-import com.example.home.myApp.domain.audio.PlayList;
-import com.example.home.myApp.service.AudioService;
-import com.example.home.myApp.service.PlayListService;
+import com.example.home.myApp.domain.audioAndPlayList.Audio;
+import com.example.home.myApp.domain.audioAndPlayList.PlayList;
+import com.example.home.myApp.service.audioAndPlayList.interfaces.AudioService;
+import com.example.home.myApp.service.audioAndPlayList.interfaces.PlayListService;
 import com.example.home.myApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,9 +18,9 @@ import java.security.Principal;
 @Controller
 public class PlayListController {
     @Autowired
-    private PlayListService playListService;
+    private PlayListService playListServiceImpl;
     @Autowired
-    private AudioService audioService;
+    private AudioService audioServiceImpl;
     @Autowired
     private UserService userService;
 
@@ -32,13 +32,13 @@ public class PlayListController {
             return "redirect:/playLists";
         }
 
-        PlayList playList = playListService.getById(Long.parseLong(id));
+        PlayList playList = playListServiceImpl.getById(Long.parseLong(id));
         model.addAttribute("playList", playList);
 
         User user = (User) userService.loadUserByUsername(principal.getName());
         if (user.equals(playList.getUser())) {
             model.addAttribute("owner", true);
-            Iterable<Audio> audios = audioService.getAll();
+            Iterable<Audio> audios = audioServiceImpl.getAll();
             model.addAttribute("audios", audios);
         }
         return "playList";
@@ -46,10 +46,10 @@ public class PlayListController {
 
     @PostMapping("/playList")
     public String addAudio(String audio, String listId) {
-        Audio theAudio = audioService.getAudioById(Long.parseLong(audio));
-        PlayList thePlayList = playListService.getById(Long.parseLong(listId));
+        Audio theAudio = audioServiceImpl.getAudioById(Long.parseLong(audio));
+        PlayList thePlayList = playListServiceImpl.getById(Long.parseLong(listId));
 
-        playListService.addAudioToPlayList(
+        playListServiceImpl.addAudioToPlayList(
                 theAudio,
                 thePlayList);
 
@@ -58,7 +58,7 @@ public class PlayListController {
 
     @GetMapping("/playLists")
     public String playLists(Model model) {
-        Iterable<PlayList> playLists = playListService.getAll();
+        Iterable<PlayList> playLists = playListServiceImpl.getAll();
         model.addAttribute("playLists", playLists);
         return "playLists";
     }
@@ -66,7 +66,7 @@ public class PlayListController {
     @PostMapping("/playLists")
     public String create(Principal principal, String name, Model model) {
         User user = (User) userService.loadUserByUsername(principal.getName());
-        playListService.add(user, name);
+        playListServiceImpl.add(user, name);
         return "redirect:/playLists";
     }
 }

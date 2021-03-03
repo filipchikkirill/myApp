@@ -1,26 +1,25 @@
-package com.example.home.myApp.service;
+package com.example.home.myApp.service.audioAndPlayList.impl;
 
 import com.example.home.myApp.domain.User;
-import com.example.home.myApp.domain.audio.Audio;
-import com.example.home.myApp.repository.AudioRepo;
+import com.example.home.myApp.domain.audioAndPlayList.Audio;
+import com.example.home.myApp.repository.audioAndPlayList.AudioRepo;
+import com.example.home.myApp.service.audioAndPlayList.interfaces.AudioService;
+import com.example.home.myApp.service.FileSaveService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Date;
-import java.util.UUID;
 
 @Service
-public class AudioService {
+public class AudioServiceImpl implements AudioService {
     @Autowired
     private AudioRepo audioRepo;
     @Autowired
     private FileSaveService fileSaveService;
 
-    public void addAudio(String name, String author, User user, MultipartFile file) throws IOException {
+    @Override public void addAudio(String name, String author, User user, MultipartFile file) throws IOException {
         Audio audio = new Audio();
         audio.setName(name);
         audio.setAuthor(author);
@@ -33,18 +32,14 @@ public class AudioService {
         audioRepo.save(audio);
     }
 
-    public void saveAudio(Audio audio) {
-        audioRepo.save(audio);
-    }
-
-    public Audio getAudioById(Long id) {
+    @Override public Audio getAudioById(Long id) {
         return audioRepo.getOne(id);
     }
 
-    public Iterable<Audio> getAll() {
+    @Override public Iterable<Audio> getAll() {
         return audioRepo.findAll();
     }
-    public Iterable<Audio> getUserAudios(User user) {
+    @Override public Iterable<Audio> getUserAudios(User user) {
         return audioRepo.findByUserName(user.getName());
     }
 
