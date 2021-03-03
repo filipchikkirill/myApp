@@ -1,9 +1,9 @@
-package com.example.home.myApp.controller;
+package com.example.home.myApp.controller.dirsAndFiles;
 
 import com.example.home.myApp.domain.dirsAndFiles.BaseDir;
 import com.example.home.myApp.repository.dirsAndFiles.BaseDirRepo;
-import com.example.home.myApp.service.dirsAndFile.DirPathReader;
-import com.example.home.myApp.service.dirsAndFile.NaturalOrderComparator;
+import com.example.home.myApp.service.dirsAndFile.interfaces.DirAndFileService;
+import com.example.home.myApp.utils.dirsAndFile.NaturalOrderComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 public class FileAndDirsController {
     @Autowired
-    private DirPathReader dirPathReader;
+    private DirAndFileService dirAndFileService;
     @Autowired
     private BaseDirRepo baseDirRepo;
     @Autowired
@@ -33,7 +33,7 @@ public class FileAndDirsController {
     @PostMapping("/dirs_and_files")
     public String add(String path, Model model)
     {
-        String message = dirPathReader.read(path);
+        String message = dirAndFileService.read(path);
         model.addAttribute("message", message);
         return dirs_and_files(model);
     }

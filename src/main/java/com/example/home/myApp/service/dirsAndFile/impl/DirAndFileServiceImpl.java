@@ -1,4 +1,4 @@
-package com.example.home.myApp.service.dirsAndFile;
+package com.example.home.myApp.service.dirsAndFile.impl;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;
@@ -8,16 +8,18 @@ import com.example.home.myApp.domain.dirsAndFiles.BaseDir;
 import com.example.home.myApp.domain.dirsAndFiles.Dir;
 import com.example.home.myApp.domain.dirsAndFiles.FileCustom;
 import com.example.home.myApp.repository.dirsAndFiles.BaseDirRepo;
+import com.example.home.myApp.service.dirsAndFile.interfaces.DirAndFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import static java.nio.file.Files.newDirectoryStream;
 
 @Component
-public class DirPathReader {
+public class DirAndFileServiceImpl implements DirAndFileService {
     @Autowired
     private BaseDirRepo baseDirRepo;
 
+    @Override
     public String read(String dirPath){
         try (DirectoryStream<Path> directoryStream = newDirectoryStream(Paths.get(dirPath.strip()))) {
             BaseDir baseDir = new BaseDir();

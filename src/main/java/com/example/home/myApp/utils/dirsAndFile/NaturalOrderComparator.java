@@ -1,4 +1,4 @@
-package com.example.home.myApp.service.dirsAndFile;
+package com.example.home.myApp.utils.dirsAndFile;
 
 import org.springframework.stereotype.Component;
 
