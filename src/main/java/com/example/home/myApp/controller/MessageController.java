@@ -7,15 +7,15 @@ import com.example.home.myApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class MessageController {
@@ -57,5 +57,53 @@ public class MessageController {
                 );
 
         return "redirect:messages";
+    }
+
+
+
+    @GetMapping("/myMessages/{user}")
+    public String userMessges(
+            Principal principal,
+            @PathVariable User user,
+            Model model,
+            @RequestParam(required = false) Message message
+    ) {
+        User currentUser = (User) userService.loadUserByUsername(principal.getName());
+        Iterable<Message> messages = user.getMessages();
+
+        model.addAttribute("messages", messages);
+        model.addAttribute("message", message);
+        model.addAttribute("isCurrentUser", currentUser.equals(user));
+
+        return "myMessages";
+    }
+
+    @PostMapping("/myMessages/{user}")
+    public String updateMessage(
+            Principal principal,
+            @PathVariable Long user,
+            @RequestParam(name="id",required = false) Message message,
+            @RequestParam("text") String text,
+            @RequestParam("title") String title,
+            @RequestParam("file") MultipartFile file
+    ) throws IOException {
+        User currentUser = (User) userService.loadUserByUsername(principal.getName());
+        if (message == null) {
+            message = new Message();
+            message.setAuthor(currentUser);
+        }
+        if (currentUser.equals(message.getAuthor())) {
+            if (!ObjectUtils.isEmpty(text)) {
+                message.setText(text);
+            }
+
+            if (!ObjectUtils.isEmpty(title)) {
+                message.setTitle(title);
+            }
+
+            messageService.addMessage(currentUser,message,file);
+        }
+
+        return "redirect:/myMessages/" + user;
     }
 }
