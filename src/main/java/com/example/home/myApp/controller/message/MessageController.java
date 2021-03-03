@@ -1,8 +1,8 @@
-package com.example.home.myApp.controller;
+package com.example.home.myApp.controller.message;
 
-import com.example.home.myApp.domain.Message;
+import com.example.home.myApp.domain.message.Message;
 import com.example.home.myApp.domain.User;
-import com.example.home.myApp.service.MessageService;
+import com.example.home.myApp.service.message.interfaces.MessageService;
 import com.example.home.myApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,7 @@ public class MessageController {
     private UserService userService;
 
     @Autowired
-    private MessageService messageService;
+    private MessageService messageServiceImpl;
 
     @GetMapping("/messages")
     public String messages(Principal principal,
@@ -35,9 +35,9 @@ public class MessageController {
         Iterable<Message> messages;
         User author = (User) userService.loadUserByUsername(filter);
         if (author != null) {
-            messages = messageService.getMessageByAuthor(author);
+            messages = messageServiceImpl.getMessageByAuthor(author);
         } else {
-            messages = messageService.getAll();
+            messages = messageServiceImpl.getAll();
         }
         model.addAttribute("messages", messages);
 
@@ -50,7 +50,7 @@ public class MessageController {
             Message message,
             @RequestParam("file") MultipartFile file
     ) throws IOException {
-        messageService.addMessage(
+        messageServiceImpl.addMessage(
                 (User) userService.loadUserByUsername(principal.getName()),
                 message,
                 file
@@ -101,7 +101,7 @@ public class MessageController {
                 message.setTitle(title);
             }
 
-            messageService.addMessage(currentUser,message,file);
+            messageServiceImpl.addMessage(currentUser,message,file);
         }
 
         return "redirect:/myMessages/" + user;

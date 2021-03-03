@@ -1,5 +1,6 @@
 package com.example.home.myApp.domain;
 
+import com.example.home.myApp.domain.message.Message;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
