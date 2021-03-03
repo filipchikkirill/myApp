@@ -1,10 +1,10 @@
 package com.example.home.myApp.service.audioAndPlayList.impl;
 
-import com.example.home.myApp.domain.User;
+import com.example.home.myApp.domain.user.User;
 import com.example.home.myApp.domain.audioAndPlayList.Audio;
 import com.example.home.myApp.repository.audioAndPlayList.AudioRepo;
 import com.example.home.myApp.service.audioAndPlayList.interfaces.AudioService;
-import com.example.home.myApp.service.FileSaveService;
+import com.example.home.myApp.utils.FileSaveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

@@ -1,6 +1,6 @@
 package com.example.home.myApp.service.audioAndPlayList.impl;
 
-import com.example.home.myApp.domain.User;
+import com.example.home.myApp.domain.user.User;
 import com.example.home.myApp.domain.audioAndPlayList.Audio;
 import com.example.home.myApp.domain.audioAndPlayList.PlayList;
 import com.example.home.myApp.repository.audioAndPlayList.PlayListRepo;

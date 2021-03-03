@@ -1,6 +1,6 @@
 package com.example.home.myApp.config;
 
-import com.example.home.myApp.service.AuthProvider;
+import com.example.home.myApp.utils.AuthProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

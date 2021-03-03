@@ -1,7 +1,7 @@
 package com.example.home.myApp.repository.message;
 
 import com.example.home.myApp.domain.message.Message;
-import com.example.home.myApp.domain.User;
+import com.example.home.myApp.domain.user.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

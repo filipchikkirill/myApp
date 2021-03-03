@@ -1,9 +1,9 @@
 package com.example.home.myApp.controller.message;
 
 import com.example.home.myApp.domain.message.Message;
-import com.example.home.myApp.domain.User;
+import com.example.home.myApp.domain.user.User;
 import com.example.home.myApp.service.message.interfaces.MessageService;
-import com.example.home.myApp.service.UserService;
+import com.example.home.myApp.service.user.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +21,7 @@ import java.security.Principal;
 public class MessageController {
 
     @Autowired
-    private UserService userService;
+    private UserService userServiceImpl;
 
     @Autowired
     private MessageService messageServiceImpl;
@@ -30,10 +30,10 @@ public class MessageController {
     public String messages(Principal principal,
                            Model model,
                            @RequestParam(required = false, defaultValue = "") String filter) {
-        User user = (User) userService.loadUserByUsername(principal.getName());
+        User user = (User) userServiceImpl.loadUserByUsername(principal.getName());
         model.addAttribute("user", user);
         Iterable<Message> messages;
-        User author = (User) userService.loadUserByUsername(filter);
+        User author = (User) userServiceImpl.loadUserByUsername(filter);
         if (author != null) {
             messages = messageServiceImpl.getMessageByAuthor(author);
         } else {
@@ -51,7 +51,7 @@ public class MessageController {
             @RequestParam("file") MultipartFile file
     ) throws IOException {
         messageServiceImpl.addMessage(
-                (User) userService.loadUserByUsername(principal.getName()),
+                (User) userServiceImpl.loadUserByUsername(principal.getName()),
                 message,
                 file
                 );
@@ -68,7 +68,7 @@ public class MessageController {
             Model model,
             @RequestParam(required = false) Message message
     ) {
-        User currentUser = (User) userService.loadUserByUsername(principal.getName());
+        User currentUser = (User) userServiceImpl.loadUserByUsername(principal.getName());
         Iterable<Message> messages = user.getMessages();
 
         model.addAttribute("messages", messages);
@@ -87,7 +87,7 @@ public class MessageController {
             @RequestParam("title") String title,
             @RequestParam("file") MultipartFile file
     ) throws IOException {
-        User currentUser = (User) userService.loadUserByUsername(principal.getName());
+        User currentUser = (User) userServiceImpl.loadUserByUsername(principal.getName());
         if (message == null) {
             message = new Message();
             message.setAuthor(currentUser);

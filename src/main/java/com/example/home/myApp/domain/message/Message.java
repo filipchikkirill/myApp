@@ -1,6 +1,6 @@
 package com.example.home.myApp.domain.message;
 
-import com.example.home.myApp.domain.User;
+import com.example.home.myApp.domain.user.User;
 import com.example.home.myApp.domain.interfaces.FileStorable;
 
 import javax.persistence.*;

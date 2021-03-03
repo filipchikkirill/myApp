@@ -1,11 +1,11 @@
 package com.example.home.myApp.controller.audioAndPlayList;
 
-import com.example.home.myApp.domain.User;
+import com.example.home.myApp.domain.user.User;
 import com.example.home.myApp.domain.audioAndPlayList.Audio;
 import com.example.home.myApp.domain.audioAndPlayList.PlayList;
 import com.example.home.myApp.service.audioAndPlayList.interfaces.AudioService;
 import com.example.home.myApp.service.audioAndPlayList.interfaces.PlayListService;
-import com.example.home.myApp.service.UserService;
+import com.example.home.myApp.service.user.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +22,7 @@ public class PlayListController {
     @Autowired
     private AudioService audioServiceImpl;
     @Autowired
-    private UserService userService;
+    private UserService userServiceImpl;
 
     @GetMapping("/playList")
     public String playlist(Principal principal,
@@ -35,7 +35,7 @@ public class PlayListController {
         PlayList playList = playListServiceImpl.getById(Long.parseLong(id));
         model.addAttribute("playList", playList);
 
-        User user = (User) userService.loadUserByUsername(principal.getName());
+        User user = (User) userServiceImpl.loadUserByUsername(principal.getName());
         if (user.equals(playList.getUser())) {
             model.addAttribute("owner", true);
             Iterable<Audio> audios = audioServiceImpl.getAll();
@@ -65,7 +65,7 @@ public class PlayListController {
 
     @PostMapping("/playLists")
     public String create(Principal principal, String name, Model model) {
-        User user = (User) userService.loadUserByUsername(principal.getName());
+        User user = (User) userServiceImpl.loadUserByUsername(principal.getName());
         playListServiceImpl.add(user, name);
         return "redirect:/playLists";
     }

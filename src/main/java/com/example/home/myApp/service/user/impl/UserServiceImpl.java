@@ -1,15 +1,15 @@
-package com.example.home.myApp.service;
+package com.example.home.myApp.service.user.impl;
 
-import com.example.home.myApp.domain.User;
-import com.example.home.myApp.repository.UserRepo;
+import com.example.home.myApp.domain.user.User;
+import com.example.home.myApp.repository.user.UserRepo;
+import com.example.home.myApp.service.user.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepo userRepo;
 
@@ -32,7 +32,7 @@ public class UserService implements UserDetailsService {
         return null;
     }
 
-    public void save(User user) {
+    @Override public void save(User user) {
         userRepo.save(user);
     }
 }

@@ -1,6 +1,6 @@
 package com.example.home.myApp.service.audioAndPlayList.interfaces;
 
-import com.example.home.myApp.domain.User;
+import com.example.home.myApp.domain.user.User;
 import com.example.home.myApp.domain.audioAndPlayList.Audio;
 import org.springframework.web.multipart.MultipartFile;
 

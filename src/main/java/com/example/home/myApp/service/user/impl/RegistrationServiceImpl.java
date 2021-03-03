@@ -1,8 +1,9 @@
-package com.example.home.myApp.service;
+package com.example.home.myApp.service.user.impl;
 
-import com.example.home.myApp.domain.Role;
-import com.example.home.myApp.domain.User;
-import com.example.home.myApp.repository.UserRepo;
+import com.example.home.myApp.domain.user.Role;
+import com.example.home.myApp.domain.user.User;
+import com.example.home.myApp.service.user.interfaces.RegistrationService;
+import com.example.home.myApp.service.user.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,19 +12,19 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 
 @Service
-public class RegistrationService {
+public class RegistrationServiceImpl implements RegistrationService {
     @Autowired
-    private UserService userService;
+    private UserService userServiceImpl;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public boolean addUser(String name, String username, String password) {
+    @Override public boolean addUser(String name, String username, String password) {
         if(name.isEmpty() ||  password.isEmpty()) {
             return false;
         }
-        UserDetails userFromDb = userService.loadUserByUsername(name);
-        UserDetails userNameFromDb = userService.loadUserByUsername(username);
+        UserDetails userFromDb = userServiceImpl.loadUserByUsername(name);
+        UserDetails userNameFromDb = userServiceImpl.loadUserByUsername(username);
         if (userFromDb != null || userNameFromDb != null) {
             return false;
         }
@@ -34,7 +35,7 @@ public class RegistrationService {
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
 
-        userService.save(user);
+        userServiceImpl.save(user);
         return true;
     }
 }

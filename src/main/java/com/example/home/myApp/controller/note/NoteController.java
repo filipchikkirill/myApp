@@ -1,9 +1,9 @@
 package com.example.home.myApp.controller.note;
 
 import com.example.home.myApp.domain.note.Note;
-import com.example.home.myApp.domain.User;
+import com.example.home.myApp.domain.user.User;
 import com.example.home.myApp.repository.note.NoteRepo;
-import com.example.home.myApp.service.UserService;
+import com.example.home.myApp.service.user.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,12 +20,12 @@ public class NoteController
     private NoteRepo noteRepo;
 
     @Autowired
-    private UserService userService;
+    private UserService userServiceImpl;
 
     @GetMapping("/notes")
     public String notes(Principal principal, Model model)
     {
-        User user = (User) userService.loadUserByUsername(principal.getName());
+        User user = (User) userServiceImpl.loadUserByUsername(principal.getName());
         List<Note> notes = noteRepo.findByUserId(user.getId());
         model.addAttribute("notes", notes);
         model.addAttribute("user", user);
@@ -36,7 +36,7 @@ public class NoteController
     @PostMapping("/addnote")
     public String addNote(Principal principal, String title, String note)
     {
-        User user = (User) userService.loadUserByUsername(principal.getName());
+        User user = (User) userServiceImpl.loadUserByUsername(principal.getName());
 
         Note newNote = new Note();
         newNote.setTitle(title);

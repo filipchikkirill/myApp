@@ -1,4 +1,4 @@
-package com.example.home.myApp.domain;
+package com.example.home.myApp.domain.user;
 
 import com.example.home.myApp.domain.message.Message;
 import org.springframework.security.core.GrantedAuthority;

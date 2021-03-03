@@ -1,6 +1,7 @@
-package com.example.home.myApp.service;
+package com.example.home.myApp.utils;
 
-import com.example.home.myApp.domain.User;
+import com.example.home.myApp.domain.user.User;
+import com.example.home.myApp.service.user.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -16,7 +17,7 @@ import java.util.Collection;
 @Component
 public class AuthProvider implements AuthenticationProvider {
     @Autowired
-    private UserService userService;
+    private UserService userServiceImpl;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -26,7 +27,7 @@ public class AuthProvider implements AuthenticationProvider {
         String username = authentication.getName();
         String password = (String) authentication.getCredentials();
 
-        User user = (User) userService.loadUserByUsername(username);
+        User user = (User) userServiceImpl.loadUserByUsername(username);
 
         if(user != null && (user.getUsername().equals(username) || user.getName().equals(username)))
         {

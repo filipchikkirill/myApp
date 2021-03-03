@@ -1,7 +1,7 @@
 package com.example.home.myApp.service.message.interfaces;
 
 import com.example.home.myApp.domain.message.Message;
-import com.example.home.myApp.domain.User;
+import com.example.home.myApp.domain.user.User;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 

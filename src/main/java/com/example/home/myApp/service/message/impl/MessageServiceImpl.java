@@ -1,9 +1,9 @@
 package com.example.home.myApp.service.message.impl;
 
 import com.example.home.myApp.domain.message.Message;
-import com.example.home.myApp.domain.User;
+import com.example.home.myApp.domain.user.User;
 import com.example.home.myApp.repository.message.MessageRepo;
-import com.example.home.myApp.service.FileSaveService;
+import com.example.home.myApp.utils.FileSaveService;
 import com.example.home.myApp.service.message.interfaces.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

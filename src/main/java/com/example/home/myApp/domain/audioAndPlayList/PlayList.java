@@ -1,6 +1,6 @@
 package com.example.home.myApp.domain.audioAndPlayList;
 
-import com.example.home.myApp.domain.User;
+import com.example.home.myApp.domain.user.User;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;

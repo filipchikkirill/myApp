@@ -1,9 +1,9 @@
 package com.example.home.myApp.controller.audioAndPlayList;
 
-import com.example.home.myApp.domain.User;
+import com.example.home.myApp.domain.user.User;
 import com.example.home.myApp.domain.audioAndPlayList.Audio;
 import com.example.home.myApp.service.audioAndPlayList.interfaces.AudioService;
-import com.example.home.myApp.service.UserService;
+import com.example.home.myApp.service.user.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +19,11 @@ public class AudioController {
     @Autowired
     private AudioService audioServiceImpl;
     @Autowired
-    private UserService userService;
+    private UserService userServiceImpl;
 
     @GetMapping("/audio")
     public String audio(Principal principal, Model model) {
-        User user = (User) userService.loadUserByUsername(principal.getName());
+        User user = (User) userServiceImpl.loadUserByUsername(principal.getName());
         model.addAttribute("user", user);
 
         Iterable<Audio> audios = audioServiceImpl.getUserAudios(user);
@@ -37,7 +37,7 @@ public class AudioController {
                            String name,
                            String author,
                            MultipartFile file) throws IOException {
-        User user = (User) userService.loadUserByUsername(principal.getName());
+        User user = (User) userServiceImpl.loadUserByUsername(principal.getName());
 
 
         audioServiceImpl.addAudio(name, author, user, file);

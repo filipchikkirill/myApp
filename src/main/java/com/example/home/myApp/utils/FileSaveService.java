@@ -1,7 +1,7 @@
-package com.example.home.myApp.service;
+package com.example.home.myApp.utils;
 
 import com.example.home.myApp.domain.message.Message;
-import com.example.home.myApp.domain.audio.Audio;
+import com.example.home.myApp.domain.audioAndPlayList.Audio;
 import com.example.home.myApp.domain.interfaces.FileStorable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
