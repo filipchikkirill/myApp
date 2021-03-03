@@ -1,8 +1,8 @@
-package com.example.home.myApp.controller;
+package com.example.home.myApp.controller.note;
 
-import com.example.home.myApp.domain.Note;
+import com.example.home.myApp.domain.note.Note;
 import com.example.home.myApp.domain.User;
-import com.example.home.myApp.repository.NoteRepo;
+import com.example.home.myApp.repository.note.NoteRepo;
 import com.example.home.myApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

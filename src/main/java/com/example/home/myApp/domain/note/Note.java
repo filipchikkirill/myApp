@@ -1,4 +1,4 @@
-package com.example.home.myApp.domain;
+package com.example.home.myApp.domain.note;
 
 import javax.persistence.*;
 import java.util.Objects;

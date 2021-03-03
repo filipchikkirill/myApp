@@ -1,6 +1,6 @@
-package com.example.home.myApp.repository;
+package com.example.home.myApp.repository.note;
 
-import com.example.home.myApp.domain.Note;
+import com.example.home.myApp.domain.note.Note;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
