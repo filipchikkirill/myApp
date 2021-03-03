@@ -1,7 +1,7 @@
-package com.example.home.myApp.domain.audio;
+package com.example.home.myApp.domain.audioAndPlayList;
 
 import com.example.home.myApp.domain.User;
-import org.springframework.format.annotation.DateTimeFormat;
+import com.example.home.myApp.domain.interfaces.FileStorable;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -9,27 +9,28 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class PlayList {
-
+public class Audio implements FileStorable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @DateTimeFormat(pattern="MM/dd/yyyy")
     private Date dateAdd;
 
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "audio_playList",
-            joinColumns = @JoinColumn(name = "playList_id"),
-            inverseJoinColumns = @JoinColumn(name = "audio_id"))
-    private Set<Audio> audio;
+    private String author;
+
+    private String filename;
+
+    @ManyToMany(mappedBy = "audio")
+    private Set<PlayList> playLists;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Audio() {
+    }
 
     public Long getId() {
         return id;
@@ -55,6 +56,30 @@ public class PlayList {
         this.name = name;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public Set<PlayList> getPlayLists() {
+        return playLists;
+    }
+
+    public void setPlayLists(Set<PlayList> playLists) {
+        this.playLists = playLists;
+    }
+
     public User getUser() {
         return user;
     }
@@ -63,24 +88,12 @@ public class PlayList {
         this.user = user;
     }
 
-    public Set<Audio> getAudio() {
-        return audio;
-    }
-
-    public void addAudio(Audio audio) {
-        getAudio().add(audio);
-    }
-
-    public void setAudio(Set<Audio> audio) {
-        this.audio = audio;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PlayList playList = (PlayList) o;
-        return id.equals(playList.id);
+        Audio audio = (Audio) o;
+        return id.equals(audio.id);
     }
 
     @Override

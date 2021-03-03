@@ -1,9 +1,8 @@
-package com.example.home.myApp.controller;
+package com.example.home.myApp.controller.audioAndPlayList;
 
 import com.example.home.myApp.domain.User;
-import com.example.home.myApp.domain.audio.Audio;
-import com.example.home.myApp.repository.AudioRepo;
-import com.example.home.myApp.service.AudioService;
+import com.example.home.myApp.domain.audioAndPlayList.Audio;
+import com.example.home.myApp.service.audioAndPlayList.interfaces.AudioService;
 import com.example.home.myApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +17,7 @@ import java.security.Principal;
 @Controller
 public class AudioController {
     @Autowired
-    private AudioService audioService;
+    private AudioService audioServiceImpl;
     @Autowired
     private UserService userService;
 
@@ -27,7 +26,7 @@ public class AudioController {
         User user = (User) userService.loadUserByUsername(principal.getName());
         model.addAttribute("user", user);
 
-        Iterable<Audio> audios = audioService.getUserAudios(user);
+        Iterable<Audio> audios = audioServiceImpl.getUserAudios(user);
         model.addAttribute("audios", audios);
 
         return "audio";
@@ -41,7 +40,7 @@ public class AudioController {
         User user = (User) userService.loadUserByUsername(principal.getName());
 
 
-        audioService.addAudio(name, author, user, file);
+        audioServiceImpl.addAudio(name, author, user, file);
 
         return "redirect:/audio";
     }
