@@ -6,6 +6,12 @@
 <div>
     <h1>Директории и файлы</h1>
 </div>
+<#if message??>
+<div class="alert alert-secondary" role="alert">
+    <p>${message}</p>
+</div>
+</#if>
+
 <form action="/dirs_and_files" method="post">
     <div class="input-group mb-3">
         <span class="input-group-text" id="inputGroup"> Новая директория: </span>

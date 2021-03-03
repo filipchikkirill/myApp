@@ -1,7 +1,6 @@
 package com.example.home.myApp.service.dirsAndFile;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 

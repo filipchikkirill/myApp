@@ -31,10 +31,11 @@ public class FileAndDirsController {
     }
 
     @PostMapping("/dirs_and_files")
-    public String add(String path)
+    public String add(String path, Model model)
     {
-        dirPathReader.read(path);
-        return "redirect:/dirs_and_files";
+        String message = dirPathReader.read(path);
+        model.addAttribute("message", message);
+        return dirs_and_files(model);
     }
 
     @GetMapping("/dirs_and_files/{baseDir}")
